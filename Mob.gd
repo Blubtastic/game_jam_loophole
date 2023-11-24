@@ -2,22 +2,23 @@ extends CharacterBody3D
 
 signal squashed
 
-@export var min_speed = 10
-@export var max_speed = 18
+@export var speed = 6
+@export var view_distance: int = 8
+var detector: ShapeCast3D
+
+func _ready():
+	detector = get_node("Pivot/Character/ShapeCast3D")
 
 func _physics_process(_delta):
-	move_and_slide()
-
-func initialize(start_position, player_position):
-	look_at_from_position(start_position, player_position, Vector3.UP)
-	rotate_y(randf_range(-PI / 4, PI / 4))
-
-	var random_speed = randi_range(min_speed, max_speed)
-	velocity = Vector3.FORWARD * random_speed
-	velocity = velocity.rotated(Vector3.UP, rotation.y)
-
-func _on_visible_on_screen_notifier_3d_screen_exited():
-	queue_free()
+	if detector.is_colliding():
+		var target = detector.get_collision_point(0)
+		look_at_from_position(
+			Vector3(self.position),
+			Vector3(target.x, self.position.y, target.z),
+			Vector3.UP)
+		velocity = Vector3.FORWARD * speed
+		velocity = velocity.rotated(Vector3.UP, rotation.y)
+		move_and_slide()
 
 func squash():
 	squashed.emit()

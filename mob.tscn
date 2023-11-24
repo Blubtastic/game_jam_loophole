@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq0ol8whi7xsn"]
+[gd_scene load_steps=5 format=3 uid="uid://cq0ol8whi7xsn"]
 
 [ext_resource type="Script" path="res://Mob.gd" id="1_uh05j"]
 [ext_resource type="PackedScene" uid="uid://cg75e06smglke" path="res://art/mob.glb" id="2_wq68v"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k7i1a"]
+points = PackedVector3Array(1, -0.5, 0, 1, 0.5, 0, -1, -0.5, 0, -1, 0.5, 0, -1, 3, -3, 1, 3, -3, 8, -0.5, -20, 8, 3, -20, -8, -0.5, -20, -8, 3, -20)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_tdb2d"]
-size = Vector3(0.740246, 1.29715, 0.982796)
+size = Vector3(1.5, 1.2, 2)
 
 [node name="Mob" type="CharacterBody3D" groups=["mob"]]
 collision_layer = 2
@@ -15,12 +18,12 @@ script = ExtResource("1_uh05j")
 
 [node name="Character" parent="Pivot" instance=ExtResource("2_wq68v")]
 
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Pivot/Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.374843, 0)
+shape = SubResource("ConvexPolygonShape3D_k7i1a")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0.564706, 0, 0, 1)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 0.309467, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309467, 0)
 shape = SubResource("BoxShape3D_tdb2d")
-
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24528, 0)
-aabb = AABB(-0.749577, -0.26839, -0.976205, 1.49915, 0.649084, 1.95241)
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
