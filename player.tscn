@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv8qxrum7v5tn"]
+[gd_scene load_steps=9 format=3 uid="uid://dv8qxrum7v5tn"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ji3pv"]
 [ext_resource type="PackedScene" uid="uid://bma1wsr8h7g1h" path="res://art/player.glb" id="1_kgb8w"]
@@ -9,6 +9,119 @@ radius = 0.8
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_17uvi"]
 height = 0.37805
 radius = 1.1662
+
+[sub_resource type="Animation" id="Animation_ei178"]
+resource_name = "float"
+length = 1.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Character:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 0.7, 1.2),
+"transitions": PackedFloat32Array(0.420448, 2.07053, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.65, 0), Vector3(0, 0.35, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Character:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5, 1.2),
+"transitions": PackedFloat32Array(0.420448, 0.44, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.139626, 0, 0), Vector3(-0.15708, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Splash:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.282699, 0.3, 0.552341),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.98, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Splash:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.29888, 0.551329),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3, 0.1, 3), Vector3(5, 0.1, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_pckdh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Character:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Character:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Splash:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Splash:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(5, 0.1, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f3o1q"]
+_data = {
+"RESET": SubResource("Animation_pckdh"),
+"float": SubResource("Animation_ei178")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_s7hre"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 6
@@ -30,5 +143,17 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.313795, -0.0199873)
 shape = SubResource("CylinderShape3D_17uvi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "float"
+libraries = {
+"": SubResource("AnimationLibrary_f3o1q")
+}
+
+[node name="Splash" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 0.1, 0, 0, 0, 5, 0, -0.5, 0)
+cast_shadow = 0
+visibility_range_fade_mode = 1
+mesh = SubResource("SphereMesh_s7hre")
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]

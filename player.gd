@@ -25,6 +25,9 @@ func _physics_process(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		$Pivot.look_at(position + direction, Vector3.UP)
+		$AnimationPlayer.speed_scale = 3
+	else:
+		$AnimationPlayer.speed_scale = 1
 	
 	# Ground Velocity
 	target_velocity.x = direction.x * speed
@@ -33,7 +36,9 @@ func _physics_process(delta):
 	# Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
 		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
-	
+		get_node("Splash").set_visible(false)
+	else:
+		get_node("Splash").set_visible(true)
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		target_velocity.y = jump_impulse
 	
@@ -51,6 +56,7 @@ func _physics_process(delta):
 	
 	velocity = target_velocity
 	move_and_slide()
+	$Pivot.rotation.x = PI / 6 * velocity.y / jump_impulse / 2
 
 func die():
 	hit.emit()
