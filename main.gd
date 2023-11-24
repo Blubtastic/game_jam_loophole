@@ -12,12 +12,17 @@ func _on_mob_timer_timeout():
 	mob_spawn_location.progress_ratio = randf()
 	
 	var player_position = $Player.position
-	mob.initialize(mob_spawn_location.position, player_position)
+#	mob.initialize(mob_spawn_location.position, player_position)
+#
+#	add_child(mob)
+#
+#	mob.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind())
 
-	add_child(mob)
-
-	mob.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind())
-
+func _process(delta):
+	# lock camera Y-axis
+	var position = get_node("Player/CameraPivot").get_global_position()
+	position.y = 0
+	get_node("Player/CameraPivot").set_global_position(position)
 
 func _on_player_hit():
 	$MobTimer.stop()
