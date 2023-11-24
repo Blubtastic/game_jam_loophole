@@ -215,12 +215,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Press Enter to retry"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 0.1, 0, 0, 0, 5, 4, 0, -35)
-mesh = SubResource("TorusMesh_y10q3")
-
 [node name="Mob" parent="." instance=ExtResource("2_pmhy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.3, 0)
-
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
