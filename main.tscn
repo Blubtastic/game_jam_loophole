@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cbued4au07ji0"]
+[gd_scene load_steps=16 format=3 uid="uid://cbued4au07ji0"]
 
 [ext_resource type="PackedScene" uid="uid://dv8qxrum7v5tn" path="res://player.tscn" id="1_8vu7g"]
 [ext_resource type="Script" path="res://main.gd" id="1_jvadh"]
 [ext_resource type="PackedScene" uid="uid://cq0ol8whi7xsn" path="res://mob.tscn" id="2_pmhy5"]
 [ext_resource type="FontFile" uid="uid://b5d36rjnn3e1x" path="res://fonts/Montserrat-Medium.ttf" id="4_nh8vu"]
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="5_q6yrv"]
+[ext_resource type="PackedScene" uid="uid://blehfyrwxoo5m" path="res://Level1.tscn" id="6_xntna"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wqshi"]
 size = Vector3(60, 2, 60)
@@ -236,6 +237,8 @@ text = "Press Enter to retry"
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 0.1, 0, 0, 0, 5, 4, 0, -35)
 mesh = SubResource("TorusMesh_y10q3")
+
+[node name="Level 1" parent="." instance=ExtResource("6_xntna")]
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
