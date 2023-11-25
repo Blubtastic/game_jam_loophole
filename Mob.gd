@@ -4,6 +4,7 @@ signal squashed
 
 @export var speed = 6
 @export var view_distance: int = 8
+@export var patroll_path: Path3D
 var viewCone: ShapeCast3D
 
 func _ready():
