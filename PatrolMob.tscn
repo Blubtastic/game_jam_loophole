@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://sarl267dil22"]
+
+[ext_resource type="PackedScene" uid="uid://cq0ol8whi7xsn" path="res://mob.tscn" id="1_71tpn"]
+
+[sub_resource type="Curve3D" id="Curve3D_dq6ns"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -14.394, -0.500006, -0.494831, 0, 0, 0, 0, 0, 0, 18.754, -0.5, -0.945, 0, 0, 0, 0, 0, 0, 18.564, -0.493536, -14.387, 0, 0, 0, 0, 0, 0, -14.4419, -0.484869, -14.3391, 0, 0, 0, 0, 0, 0, -14.394, -0.500006, -0.494831),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Path3D" type="Path3D"]
+curve = SubResource("Curve3D_dq6ns")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
+transform = Transform3D(0.0135792, -1.81578e-07, -0.999907, 7.10533e-15, 1, -1.81595e-07, 0.999894, 2.46594e-09, 0.0135794, -14.394, -0.500006, -0.494831)
+
+[node name="Mob" parent="PathFollow3D" instance=ExtResource("1_71tpn")]
