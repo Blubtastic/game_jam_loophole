@@ -1,8 +1,9 @@
 extends CharacterBody3D
 
 signal squashed
+signal player_detected
 
-@export var speed = 6
+@export var speed = 8
 @export var view_distance: int = 8
 var viewCone: ShapeCast3D
 var path: PathFollow3D
@@ -29,6 +30,9 @@ func _physics_process(_delta):
 					Vector3(self.global_position),
 					Vector3(target),
 					Vector3.UP)
+				# when mob sees player
+				player_detected.emit()
+				
 	
 	if patroll:
 		path.progress += speed * _delta
@@ -39,3 +43,5 @@ func _physics_process(_delta):
 func squash():
 	squashed.emit()
 	queue_free()
+
+
