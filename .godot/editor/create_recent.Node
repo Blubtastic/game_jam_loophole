@@ -1,9 +1,12 @@
+CollisionShape3D
+Node
+ShapeCast3D
+RayCast3D
 MeshInstance3D
 AudioStreamPlayer
 Label
 ColorRect
 Control
-CollisionShape3D
 Area3D
 Timer
 PathFollow3D
@@ -15,4 +18,3 @@ Camera3D
 Marker3D
 DirectionalLight3D
 StaticBody3D
-Node
