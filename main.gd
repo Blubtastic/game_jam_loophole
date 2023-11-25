@@ -1,9 +1,11 @@
 extends Node
 
 @export var mob_scene: PackedScene
+var camera: Marker3D
 
 func _ready():
 	$UserInterface/Retry.hide()
+	camera = get_node("Player/CameraPivot")
 
 func _on_mob_timer_timeout():
 	var mob = mob_scene.instantiate()
@@ -20,9 +22,10 @@ func _on_mob_timer_timeout():
 
 func _process(delta):
 	# lock camera Y-axis
-	var position = get_node("Player/CameraPivot").get_global_position()
-	position.y = 0
-	get_node("Player/CameraPivot").set_global_position(position)
+	if camera != null:
+		var position = camera.get_global_position()
+		position.y = 0
+		camera.set_global_position(position)
 
 func _on_player_hit():
 	$UserInterface/Retry.show()
