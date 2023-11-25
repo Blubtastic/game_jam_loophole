@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbued4au07ji0"]
+[gd_scene load_steps=11 format=3 uid="uid://cbued4au07ji0"]
 
 [ext_resource type="PackedScene" uid="uid://dv8qxrum7v5tn" path="res://player.tscn" id="1_8vu7g"]
 [ext_resource type="Script" path="res://main.gd" id="1_jvadh"]
@@ -16,6 +16,13 @@ material = SubResource("StandardMaterial3D_nyqkp")
 [sub_resource type="Theme" id="Theme_0wg70"]
 default_font = ExtResource("4_nh8vu")
 default_font_size = 22
+
+[sub_resource type="Curve3D" id="Curve3D_dq6ns"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -14.394, -0.500006, -0.494831, 0, 0, 0, 0, 0, 0, 18.754, -0.5, -0.945, 0, 0, 0, 0, 0, 0, 18.564, -0.493536, -14.387, 0, 0, 0, 0, 0, 0, -14.4419, -0.484869, -14.3391, 0, 0, 0, 0, 0, 0, -14.394, -0.500006, -0.494831),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jvadh")
@@ -99,9 +106,18 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Press Enter to retry"
 
-[node name="Mob" parent="." instance=ExtResource("2_pmhy5")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15.4, 0.3, -16.1)
-
 [node name="Level 1" parent="." instance=ExtResource("6_xntna")]
+
+[node name="MobPaths" type="Node" parent="Level 1"]
+
+[node name="Path3D" type="Path3D" parent="Level 1/MobPaths"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6741, 1.44996, -22.9724)
+curve = SubResource("Curve3D_dq6ns")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Level 1/MobPaths/Path3D"]
+transform = Transform3D(0.0135792, 0, -0.999907, 0, 1, 0, 0.999894, 0, 0.0135794, -14.394, -0.500006, -0.494831)
+rotation_mode = 1
+
+[node name="Mob" parent="Level 1/MobPaths/Path3D/PathFollow3D" instance=ExtResource("2_pmhy5")]
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
