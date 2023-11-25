@@ -25,7 +25,6 @@ func _process(delta):
 	get_node("Player/CameraPivot").set_global_position(position)
 
 func _on_player_hit():
-	$MobTimer.stop()
 	$UserInterface/Retry.show()
 
 func _unhandled_input(event):
