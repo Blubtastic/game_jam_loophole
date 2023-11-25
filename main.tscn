@@ -19,7 +19,7 @@ default_font_size = 22
 
 [sub_resource type="Curve3D" id="Curve3D_dq6ns"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -16, 0.5, -16, 0, 0, 0, 0, 0, 0, -17, 0.5, -8, 0, 0, 0, 0, 0, 0, -10, 0.5, -7.5, 0, 0, 0, 0, 0, 0, -5.5, 0.5, -18, 0, 0, 0, 0, 0, 0, -12, 0.5, -20, 0, 0, 0, 0, 0, 0, -16, 0.5, -16),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.291, -0.5, -3.559, 0, 0, 0, 0, 0, 0, -18.898, -0.5, -2.452, 0, 0, 0, 0, 0, 0, 18.754, -0.5, -0.945, 0, 0, 0, 0, 0, 0, 18.392, -0.5, -8.493, 0, 0, 0, 0, 0, 0, 15.586, -0.5, -3.325, 0, 0, 0, 0, 0, 0, 4.177, -0.5, -3.499),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
 }
 point_count = 6
@@ -111,11 +111,14 @@ text = "Press Enter to retry"
 [node name="MobPaths" type="Node" parent="Level 1"]
 
 [node name="Path3D" type="Path3D" parent="Level 1/MobPaths"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47379, 1.44784, -13.1535)
 curve = SubResource("Curve3D_dq6ns")
 
-[node name="Mobs" type="Node" parent="Level 1"]
+[node name="PathFollow3D" type="PathFollow3D" parent="Level 1/MobPaths/Path3D"]
+transform = Transform3D(-0.047683, 0, 0.998862, 0, 1, 0, -0.998849, 0, -0.0476836, 4.291, -0.5, -3.559)
+rotation_mode = 1
 
-[node name="Mob" parent="Level 1/Mobs" instance=ExtResource("2_pmhy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.3, -7)
+[node name="Mob" parent="Level 1/MobPaths/Path3D/PathFollow3D" instance=ExtResource("2_pmhy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
