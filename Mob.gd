@@ -4,14 +4,14 @@ signal squashed
 
 @export var speed = 6
 @export var view_distance: int = 8
-var detector: ShapeCast3D
+var viewCone: ShapeCast3D
 
 func _ready():
-	detector = get_node("Pivot/Character/ShapeCast3D")
+	viewCone = get_node("Pivot/Character/ShapeCast3D")
 
 func _physics_process(_delta):
-	if detector.is_colliding():
-		var target = detector.get_collision_point(0)
+	if viewCone.is_colliding():
+		var target = viewCone.get_collision_point(0)
 		look_at_from_position(
 			Vector3(self.position),
 			Vector3(target.x, self.position.y, target.z),
