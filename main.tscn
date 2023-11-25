@@ -1,5 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbued4au07ji0"]
-
+[gd_scene load_steps=14 format=3 uid="uid://cbued4au07ji0"]
 
 [ext_resource type="PackedScene" uid="uid://dv8qxrum7v5tn" path="res://player.tscn" id="1_8vu7g"]
 [ext_resource type="Script" path="res://main.gd" id="1_jvadh"]
@@ -229,8 +228,5 @@ text = "Press Enter to retry"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.3, 0)
 
 [node name="Level 1" parent="." instance=ExtResource("6_xntna")]
-
-[node name="Mob" parent="." instance=ExtResource("2_pmhy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -12)
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
